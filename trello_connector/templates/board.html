@@ -1,0 +1,10 @@
+{% extends "trello_connector_base.html" %}
+
+{% block title %}Board: {{ board.name }}{% endblock %}
+
+{% block content %}
+<h1>Board: {{ board.name }}</h1>
+<p>{{ board.description }}</p>
+
+<a href="/trello/boards" class="btn btn-primary">Back</a>
+{% endblock %}

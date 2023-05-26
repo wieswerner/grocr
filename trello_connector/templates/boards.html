@@ -1,0 +1,18 @@
+{% extends "trello_connector_base.html" %}
+
+{% block title %}Boards{% endblock %}
+
+{% block content %}
+<h1>Boards</h1>
+
+{% for board in boards %}
+<div class="card" style="width: 18rem; margin: 15px;">
+    <img src={{ board.backgroundImage }} class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ board.name }}</h5>
+      <p class="card-text">{{ board.description }}</p>
+      <a href={{ board.url }} class="btn btn-primary">Open {{ board.name }}</a>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
