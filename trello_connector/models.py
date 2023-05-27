@@ -1,6 +1,7 @@
 from django.db import models
 from . import services
 import markdown
+from bs4 import BeautifulSoup
 
 # Create your models here.
 
@@ -71,7 +72,43 @@ class Card(object):
         cards = []
 
         for card_result in card_results:
-            cards.append(Card(card_result.id, card_result.idList,
-                         card_result.name, card_result.desc))
+            cards.append(Card.create_card(card_result))
 
         return cards
+
+    def get_card(id):
+        card_result = services.Api.get_api_json("/1/cards/" + str(id))
+        return Card.create_card(card_result)
+
+    def create_card(json):
+        return Card(json.id, json.idList,  json.name, json.desc)
+
+
+class Shopping_List(object):
+    def __init__(self, cards, ingredients):
+        self.cards = cards
+        self.ingredients = ingredients
+
+    def create(card_ids):
+        id_list = str(card_ids).split(",")
+        card_names = []
+        ingredients = []
+
+        for card_id in id_list:
+            card = Card.get_card(card_id)
+            card_names.append(card.name)
+
+            ingredients += Shopping_List.get_ingredients(card)
+
+        return Shopping_List(card_names, ingredients)
+
+    def get_ingredients(card):
+        soup = BeautifulSoup(card.html, "html.parser")
+        ul = soup.find("ul")
+
+        ingredients = []
+
+        for li in ul.find_all("li"):
+            ingredients.append(li.string)
+
+        return ingredients
