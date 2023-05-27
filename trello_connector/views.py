@@ -11,8 +11,7 @@ def boards(request):
 
 def board(request, id):
     board = models.Board.get_board_details(id)
-    lists = models.List.get_lists(id)
-    return render(request, "board.html", {"board": board, "lists": lists})
+    return render(request, "board.html", {"board": board})
 
 
 def recipies(request):
