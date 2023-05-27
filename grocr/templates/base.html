@@ -10,8 +10,9 @@
 
 <body>
     <div class="container">
-        {% block topnav %}{% endblock %}
-
+        <div style="position: sticky; top: 0; background-color: white; z-index: 9999;">
+            {% block topnav %}{% endblock %}
+        </div>
 
         <div id="content">
             {% block content %}{% endblock %}

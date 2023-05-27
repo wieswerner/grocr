@@ -1,18 +1,58 @@
-{% extends "trello_connector_base.html" %} {% block title %}Board: {{ board.name
-}}{% endblock %} {% block content %}
-<h1>Board: {{ board.name }}</h1>
-<p>{{ board.description }}</p>
+{% extends "trello_connector_base.html" %}
+{% block title %}Board: {{ board.name }}{% endblock %}
 
-<div class="container text-center">
+{% block content %}
+<style>
+    .trello-card {
+        cursor: pointer;
+    }
+
+    .selected-card {
+        border-color: darkblue;
+        border-width: 3px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .sticky-header {
+        position: sticky;
+        background-color: white;
+
+    }
+</style>
+
+<div class="container sticky-header" style="top: 73px; z-index: 9000;">
+    <div class="row">
+        <div class="col">
+            <h1>Board: {{ board.name }}</h1>
+            <p>{{ board.description }}</p>
+        </div>
+        <div class="col" style="text-align: right; margin: 15px;">
+            <button class="btn btn-primary get-shopping-list hidden">Get Shoppint List</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
     <div class="row align-items-start">
         {% for list in board.lists %}
         <div class="col">
-            <h1>{{ list.name }}</h1>
+            <div class="text-center sticky-header" style="top: 168px; z-index: 8000;">
+                <h1>{{ list.name }}</h1>
+                <button class="btn btn-primary select-all" id={{list.id}}>Select All</button>
+                <button class="btn btn-primary deselect-all hidden" id={{list.id}}>Deselect All</button>
+            </div>
+
             {% for card in list.cards %}
-            <div class="card" style="width: 18rem; margin: 15px">
-                <div class="card-body">
-                    <h5 class="card-title">{{ card.name }}</h5>
-                    <p class="card-text">{{ card.html|safe }}</p>
+            <div class={{ list.id }}>
+                <div class="card trello-card" style="width: 18rem; margin: 15px" id={{ card.id }}>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ card.name }}</h5>
+                        <p class="card-text">{{ card.html|safe }}</p>
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -22,4 +62,84 @@
 </div>
 
 <a href="/trello/boards" class="btn btn-primary">Back</a>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selectedCards = [];
+
+        // get shopping list button
+        $('.get-shopping-list').click(function () {
+            console.log(selectedCards.toString())
+        });
+
+        // select all button
+        $('.select-all').click(function () {
+            var listId = $(this).attr('id');
+
+            $('.' + listId).each(function (i, card) {
+                toggleCard($(this).find('div'))
+            });
+
+            // toggle buttons
+            $(this).addClass('hidden');
+            $('.deselect-all').each(function (i, button) {
+                if ($(this).attr('id') === listId) {
+                    $(this).removeClass('hidden');
+                }
+            })
+        })
+
+        // deselect all button
+        $('.deselect-all').click(function () {
+            var listId = $(this).attr('id');
+
+            $('.' + listId).each(function (i, card) {
+                toggleCard($(this).find('div'))
+            });
+
+            // toggle buttons
+            $(this).addClass('hidden');
+            $('.select-all').each(function (i, button) {
+                if ($(this).attr('id') === listId) {
+                    $(this).removeClass('hidden');
+                }
+            })
+        })
+
+        // card click
+        $('.trello-card').click(function () {
+            toggleCard($(this));
+        })
+
+        function toggleCard(card) {
+            var id = card.attr('id');
+
+            if (selectedCards.includes(id)) {
+                selectedCards = $.grep(selectedCards, function (value) {
+                    return value != id;
+                })
+                card.removeClass('selected-card');
+            } else {
+                selectedCards.push(id);
+                card.addClass('selected-card');
+            }
+
+            setShoppingListButton();
+        }
+
+        function setShoppingListButton() {
+            var shoppingListButton = $('.get-shopping-list');
+            var isHidden = shoppingListButton.hasClass('hidden');
+
+            if (selectedCards.length > 0 && isHidden) {
+                shoppingListButton.removeClass('hidden');
+            } else if (selectedCards.length === 0 && !isHidden) {
+                shoppingListButton.addClass('hidden');
+            }
+        }
+    })
+</script>
 {% endblock %}
