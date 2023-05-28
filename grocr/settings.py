@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'grocr',
-    'trello_connector'
+    'trello_connector',
+    'todoist_connector',
 ]
 
 MIDDLEWARE = [

@@ -11,7 +11,31 @@
 <body>
     <div class="container">
         <div style="position: sticky; top: 0; background-color: white; z-index: 9999;">
-            {% block topnav %}{% endblock %}
+            {% block topnav %}
+                <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                    <a href="/trello/boards"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                        <span class="fs-4">Grocr</span>
+                    </a>
+                
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a href="/trello/boards" 
+                                {% if "/trello/board" in request.path %} class=" nav-link active"aria-current="page" 
+                                {% else %} class="nav-link" {% endif %}>
+                                Boards
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/trello/recipies" 
+                                {% if "/trello/recipies/" in request.path %} class=" nav-link active"aria-current="page" 
+                                {% else %} class="nav-link" {% endif %}>
+                                Recipies
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+            {% endblock %}
         </div>
 
         <div id="content">

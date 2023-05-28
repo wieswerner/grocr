@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('trello/', include('trello_connector.urls')),
+    path('todoist/', include('todoist_connector.urls')),
 ]
