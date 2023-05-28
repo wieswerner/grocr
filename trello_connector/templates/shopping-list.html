@@ -12,15 +12,18 @@
 </p>
 
 <div class="container">
-    {% for ingredient in shopping_list.ingredients %}
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value={{ ingredient }} id={{forloop.counter}} checked>
-        <label class="form-check-label" for={{forloop.counter}}>
-            {{ ingredient }}
-        </label>
-      </div>
-    {% endfor %}
-</div>
+    <form action="/todoist/sync/" method="post">
+        {% csrf_token %}
 
-<a href="/todoist/sync" class="btn btn-primary get-shopping-list hidden">Sync</a>
+        {% for ingredient in shopping_list.ingredients %}
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{forloop.counter}}" name='{{ingredient|cut:" "}}' checked>
+            <label class="form-check-label" for="{{forloop.counter}}">
+                {{ ingredient }}
+            </label>
+        </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Sync">
+    </form>
+</div>
 {% endblock %}

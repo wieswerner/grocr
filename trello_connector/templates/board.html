@@ -63,7 +63,6 @@
 
 <a href="/trello/boards" class="btn btn-primary">Back</a>
 
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -79,13 +78,13 @@
         $('.select-all').click(function () {
             var listId = $(this).attr('id');
 
-            $('.' + listId).each(function (i, card) {
+            $('.' + listId).each(function () {
                 toggleCard($(this).find('div'))
             });
 
             // toggle buttons
             $(this).addClass('hidden');
-            $('.deselect-all').each(function (i, button) {
+            $('.deselect-all').each(function () {
                 if ($(this).attr('id') === listId) {
                     $(this).removeClass('hidden');
                 }
