@@ -1,11 +1,10 @@
 from django.db import models
-from . import services
-import markdown
 from bs4 import BeautifulSoup
+from . import services
+
+import markdown
 
 # Create your models here.
-
-
 class Board(object):
     def __init__(self, id, name, description, closed, url, backgroundImage):
         self.id = id
@@ -100,15 +99,38 @@ class Shopping_List(object):
 
             ingredients += Shopping_List.get_ingredients(card)
 
-        return Shopping_List(card_names, ingredients)
+        combined_ingredients = Shopping_List.combine_ingredients(ingredients)
+        return Shopping_List(card_names, combined_ingredients)
 
     def get_ingredients(card):
         soup = BeautifulSoup(card.html, "html.parser")
         ul = soup.find("ul")
-
         ingredients = []
 
         for li in ul.find_all("li"):
             ingredients.append(li.string)
 
         return ingredients
+
+    def combine_ingredients(ingredients):
+        combined_ingredients = {}
+        
+        for ingredient in ingredients:
+            text_amount = ingredient[ingredient.index("(") + 1:ingredient.rindex(")")]
+            amount = float(text_amount)
+
+            name = ingredient.replace(f"({text_amount})", "").strip()
+
+            if name in combined_ingredients:
+                amount += float(combined_ingredients[name])
+            
+            combined_ingredients[name] = amount
+
+        return Shopping_List.flatten_dictionary(combined_ingredients)
+    
+    def flatten_dictionary(dictionary):
+        list = []
+        for key, value in dictionary.items():
+            list.append(f"{round(value)}x {key}")
+
+        return list

@@ -1,2 +1,9 @@
 {% extends "todoist_connector_base.html" %}
 {% block title %} Todoist Sync {% endblock %}
+
+{% block content %}
+<h1>Todoist Sync Complete</h1>
+<p>You successfully synced {{ count }} ingredients!</p>
+
+<a class="btn btn-primary" href="https://todoist.com/app/project/{{ project_id }}" target="_blank">Open {{ project_name }} in Todoist</a>
+{% endblock %}
