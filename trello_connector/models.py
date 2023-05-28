@@ -116,9 +116,12 @@ class Shopping_List(object):
         combined_ingredients = {}
         
         for ingredient in ingredients:
-            text_amount = ingredient[ingredient.index("(") + 1:ingredient.rindex(")")]
-            amount = float(text_amount)
+            text_amount = "1"
 
+            if "(" and ")" in ingredient:
+                text_amount = ingredient[ingredient.index("(") + 1:ingredient.rindex(")")]
+
+            amount = float(text_amount)
             name = ingredient.replace(f"({text_amount})", "").strip()
 
             if name in combined_ingredients:
