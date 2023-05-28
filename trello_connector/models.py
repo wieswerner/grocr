@@ -132,8 +132,10 @@ class Shopping_List(object):
         return Shopping_List.flatten_dictionary(combined_ingredients)
     
     def flatten_dictionary(dictionary):
-        list = []
-        for key, value in dictionary.items():
-            list.append(f"{round(value)}x {key}")
+        keys = sorted(list(dictionary.keys()), key=str.casefold)
 
-        return list
+        ingredients = []
+        for key in keys:
+            ingredients.append(f"{round(dictionary[key])}x {key}")
+
+        return ingredients
