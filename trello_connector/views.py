@@ -5,17 +5,26 @@ from . import models
 
 
 def boards(request):
-    boards = models.Board.get_boards()
+    trello_api_token = request.COOKIES['Trello_Token']
+    trello_api_key = request.COOKIES['Trello_Api_Key']
+    boards = models.Board.get_boards(trello_api_key, trello_api_token)
+
     return render(request, "boards.html", {"boards": boards})
 
 
 def board(request, id):
-    board = models.Board.get_board_details(id)
+    trello_api_token = request.COOKIES['Trello_Token']
+    trello_api_key = request.COOKIES['Trello_Api_Key']
+    board = models.Board.get_board_details(id, trello_api_key, trello_api_token)
+
     return render(request, "board.html", {"board": board})
 
 
 def shopping_list(request, card_ids):
-    shopping_list = models.Shopping_List.create(card_ids)
+    trello_api_token = request.COOKIES['Trello_Token']
+    trello_api_key = request.COOKIES['Trello_Api_Key']
+    shopping_list = models.Shopping_List.create(card_ids, trello_api_key, trello_api_token)
+    
     return render(request, "shopping-list.html", {"shopping_list": shopping_list})
 
 
