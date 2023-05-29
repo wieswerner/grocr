@@ -4,7 +4,75 @@
 {% block content %}
 <h1>Home</h1>
 
-<form>
+<div class="mb-3">
+    <label for="todoistapi" class="form-label">Todoist API Key</label>
+    <input type="password" class="form-control" id="todoistapi" aria-describedby="todoistapihelp">
+    <div id="todoistapihelp" class="form-text">Get your <a
+            href="https://todoist.com/app/settings/integrations/developer" target="_blank">Todoist API Key</a></div>
+</div>
+<div class="mb-3">
+    <label for="trelloapikey" class="form-label">Trello API Key</label>
+    <input type="password" class="form-control" id="trelloapikey" aria-describedby="trelloapikeyhelp">
+    <div id="trelloapikeyhelp" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
+            target="_blank">Trello Power up</a></div>
+</div>
+<div class="mb-3">
+    <label for="trellotoken" class="form-label">Trello Token</label>
+    <input type="password" class="form-control" id="trellotoken" aria-describedby="trellotokenhelp">
+    <div id="trellotokenhelp" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
+            target="_blank">Trello Power up</a></div>
+</div>
 
-</form>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        readApiKeys();
+
+        $('.form-control').keyup(function (e) {
+            saveCookie($(this).attr('id'), $(this).val())
+        });
+
+        $('.form-control').on('paste', function (evt) {
+            var id = $(this).attr('id');
+            catchPaste(evt, this, function (clipData) {
+                saveCookie(id, clipData);
+            });
+        });
+
+        function readApiKeys(){
+            $('#todoistapi').val(readCookie('todoistapi'));
+            $('#trelloapikey').val(readCookie('trelloapikey'));
+            $('#trellotoken').val(readCookie('trellotoken'));
+        }
+
+        function readCookie(key){
+            return Cookies.get(key);
+        }
+
+        function saveCookie(key, value) {
+            Cookies.set(key, value, { expires: 365 });
+        }
+    });
+
+    function catchPaste(evt, elem, callback) {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+            navigator.clipboard.readText().then(callback);
+        } else if (evt.originalEvent && evt.originalEvent.clipboardData) {
+            callback(evt.originalEvent.clipboardData.getData('text'));
+        } else if (evt.clipboardData) {
+            callback(evt.clipboardData.getData('text/plain'));
+        } else if (window.clipboardData) {
+            callback(window.clipboardData.getData('Text'));
+        } else {
+            setTimeout(function () {
+                callback(elem.value)
+            }, 100);
+        }
+    }
+</script>
 {% endblock %}
