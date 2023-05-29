@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('trello/', include('trello_connector.urls')),
     path('todoist/', include('todoist_connector.urls')),
+
+    path('home/', views.home),
+    path('', views.home),
 ]
