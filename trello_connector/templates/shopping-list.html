@@ -4,20 +4,34 @@
 
 {% block content %}
 <h1>Shopping List</h1>
-<p>
-    Ingredients for
-    {% for card in shopping_list.cards %}
-    <span class="badge text-bg-info">{{ card }}</span>
-    {% endfor %}
-</p>
+
 
 <div class="container">
+    <div class="mb-3">
+        <label for="newingredient" class="form-label">Add Ingredients</label>
+        <input type="text" class="form-control" id="newingredient" aria-describedby="newingredienthelp">
+        <div id="newingredienthelp" class="form-text">Use <strong>enter</strong> to add new ingredients</div>
+    </div>
+
+    <div class="added-recipes hidden">
+
+    </div>
+
+    <h3>Ingredients</h3>
+    <p>
+        From
+        {% for card in shopping_list.cards %}
+        <span class="badge text-bg-info">{{ card }}</span>
+        {% endfor %}
+    </p>
     <form action="/todoist/sync/" method="post">
         {% csrf_token %}
 
+        <div id="dynamicingredients"></div>
         {% for ingredient in shopping_list.ingredients %}
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{forloop.counter}}" name='{{ingredient|cut:" "}}' checked>
+            <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{forloop.counter}}"
+                name='{{ingredient|cut:" "}}' checked>
             <label class="form-check-label" for="{{forloop.counter}}">
                 {{ ingredient }}
             </label>
@@ -26,4 +40,30 @@
         <input class="btn btn-primary mt-3" type="submit" value="Sync">
     </form>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        id = 100;
+        $('#newingredient').keypress(function (e) {
+            if (e.which == 13)  // the enter key code
+            {
+                id++;
+                var ingredient = $(this).val();
+                var template =         
+                    '<div class="form-check">' +
+                        '<input class="form-check-input" type="checkbox" value="' + ingredient + '" id="' + id + '"' +
+                            'name="' + ingredient + '"" checked>' +
+                        '<label class="form-check-label" for="' + id + '">' + 
+                            ingredient + 
+                        '</label>' +
+                    '</div>';
+
+                $("#dynamicingredients").prepend(template)
+                $(this).val("");
+            }
+        });
+    });
+</script>
 {% endblock %}
