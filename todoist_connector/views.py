@@ -8,10 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def sync(request):
     todoist_api_key = request.COOKIES['Todoist_Api_Key']
+    todoist_project_name = request.COOKIES['Todoist_Project_Name']
     tasks = []
 
     for key in [key for key in request.POST if not key == "csrfmiddlewaretoken"]:
         tasks.append(request.POST[key])
 
-    project = models.Task.create_tasks(tasks, todoist_api_key)
+    project = models.Task.create_tasks(tasks, todoist_project_name, todoist_api_key)
     return render(request, "sync.html", {"count": len(tasks), "project_id": project.id, "project_name": project.name})

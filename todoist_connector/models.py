@@ -27,8 +27,8 @@ class Project(object):
 
 class Task:
 
-    def create_tasks(tasks, todoist_api_key):
-        project = Project.get_project("Inbox", todoist_api_key)
+    def create_tasks(tasks, todoist_project_name, todoist_api_key):
+        project = Project.get_project(todoist_project_name, todoist_api_key)
 
         for task in tasks:
             Task.create_task(task, project.id, todoist_api_key)
