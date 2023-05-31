@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'grocr',
     'trello_connector',
     'todoist_connector',
+    'openai_connector',
 ]
 
 MIDDLEWARE = [

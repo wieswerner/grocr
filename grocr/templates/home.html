@@ -4,28 +4,57 @@
 {% block content %}
 <h1>Home</h1>
 
-<div class="mb-3">
-    <label for="Todoist_Project_Name" class="form-label">Todoist Project Name</label>
-    <input type="text" class="form-control" id="Todoist_Project_Name" aria-describedby="Todoist_Project_Name_Help">
-    <div id="Todoist_Project_Name_Help" class="form-text">Your Project were the ingredients will be synced to.</a></div>
+<div class="card" style="width: 50rem; margin: 15px">
+    <div class="card-body">
+        <h5 class="card-title">Todoist Settings</h5>
+        <div class="mb-3">
+            <label for="Todoist_Project_Name" class="form-label">Project Name</label>
+            <input type="text" class="form-control" id="Todoist_Project_Name" aria-describedby="Todoist_Project_Name_Help">
+            <div id="Todoist_Project_Name_Help" class="form-text">Your Project were the ingredients will be synced to.</a></div>
+        </div>
+        <div class="mb-3">
+            <label for="Todoist_Api_Key" class="form-label">API Key</label>
+            <input type="password" class="form-control" id="Todoist_Api_Key" aria-describedby="Todoist_Api_Key_Help">
+            <div id="Todoist_Api_Key_Help" class="form-text">Get your <a
+                    href="https://todoist.com/app/settings/integrations/developer" target="_blank">Todoist API Key</a>.</div>
+        </div>
+    </div>
 </div>
-<div class="mb-3">
-    <label for="Todoist_Api_Key" class="form-label">Todoist API Key</label>
-    <input type="password" class="form-control" id="Todoist_Api_Key" aria-describedby="Todoist_Api_Key_Help">
-    <div id="Todoist_Api_Key_Help" class="form-text">Get your <a
-            href="https://todoist.com/app/settings/integrations/developer" target="_blank">Todoist API Key</a>.</div>
+
+<div class="card" style="width: 50rem; margin: 15px">
+    <div class="card-body">
+        <h5 class="card-title">Trello Settings</h5>
+        <div class="mb-3">
+            <label for="Trello_Api_Key" class="form-label">API Key</label>
+            <input type="password" class="form-control" id="Trello_Api_Key" aria-describedby="Trello_Api_Key_Help">
+            <div id="Trello_Api_Key_Help" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
+                    target="_blank">Trello Power up</a>.</div>
+        </div>
+        <div class="mb-3">
+            <label for="Trello_Token" class="form-label">Token</label>
+            <input type="password" class="form-control" id="Trello_Token" aria-describedby="Trello_Token_Help">
+            <div id="Trello_Token_Help" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
+                    target="_blank">Trello Power up</a>.</div>
+        </div>
+    </div>
 </div>
-<div class="mb-3">
-    <label for="Trello_Api_Key" class="form-label">Trello API Key</label>
-    <input type="password" class="form-control" id="Trello_Api_Key" aria-describedby="Trello_Api_Key_Help">
-    <div id="Trello_Api_Key_Help" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
-            target="_blank">Trello Power up</a>.</div>
-</div>
-<div class="mb-3">
-    <label for="Trello_Token" class="form-label">Trello Token</label>
-    <input type="password" class="form-control" id="Trello_Token" aria-describedby="Trello_Token_Help">
-    <div id="Trello_Token_Help" class="form-text">Get your <a href="https://trello.com/power-ups/admin/new"
-            target="_blank">Trello Power up</a>.</div>
+
+<div class="card" style="width: 50rem; margin: 15px">
+    <div class="card-body">
+        <h5 class="card-title">Open AI Settings</h5>
+        <div class="mb-3">
+            <label for="Open_AI_Org" class="form-label">Organization Id</label>
+            <input type="password" class="form-control" id="Open_AI_Org" aria-describedby="Open_AI_Org_Help">
+            <div id="Open_AI_Org_Help" class="form-text">Get your <a href="https://platform.openai.com/account/org-settings"
+                    target="_blank">Open AI Organization Id</a>.</div>
+        </div>
+        <div class="mb-3">
+            <label for="Open_AI_Api_Key" class="form-label">API Key</label>
+            <input type="password" class="form-control" id="Open_AI_Api_Key" aria-describedby="Open_AI_Api_Key_Help">
+            <div id="Open_AI_Api_Key_Help" class="form-text">Get your <a href="https://platform.openai.com/account/api-keys"
+                    target="_blank">Open AI API Keys</a>.</div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"
