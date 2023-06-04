@@ -171,11 +171,12 @@ class Shopping_List_AI(object):
 
     def get_ingredients(card):
         soup = BeautifulSoup(card.html, "html.parser")
-        ul = soup.find("ul")
+        uls = soup.find_all("ul")
         ingredients = []
 
-        for li in ul.find_all("li"):
-            ingredients.append(li.string)
+        for ul in uls: 
+            for li in ul.find_all("li"):
+                ingredients.append(li.string)
 
         return ingredients
 
@@ -193,7 +194,7 @@ class Shopping_List_AI(object):
             3. Combine food ingredients where possible.
             4. Sum amounts together.
             5. Can you return only the ingredients as an unordered list.
-            6. Can you seperate each ingredient with a new line
+            6. Can you seperate each ingredient with a new line.
 
             Ingredients: \n{ingredient_input}
         """
