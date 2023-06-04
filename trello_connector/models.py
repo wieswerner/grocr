@@ -193,12 +193,17 @@ class Shopping_List_AI(object):
             3. Combine food ingredients where possible.
             4. Sum amounts together.
             5. Can you return only the ingredients as an unordered list.
+            6. Can you seperate each ingredient with a new line
 
             Ingredients: \n{ingredient_input}
         """
 
         ai_result = OpenAiApi.ask_open_ai(input, openai_org, openai_api_key)
-        ai_result = ai_result.split("\n")
+        
+        if ai_result.count('\n') > 1:
+            ai_result = ai_result.split("\n")
+        elif ai_result.count(',') > 1:
+            ai_result = ai_result.split(",")
 
         combined_ingredients = []
 
