@@ -188,15 +188,18 @@ class Shopping_List_AI(object):
                 ingredient_input += f"- {ingredient}\n"
 
         input = f"""
-            can you combine these groups of food ingredients and take into consideration
-            1. If no quantity is specified assume quantity of 1.
-            2. All weights and volumes should be converted to metric.
-            3. Combine food ingredients where possible.
-            4. Sum amounts together.
-            5. Can you return only the ingredients as an unordered list.
-            6. Can you seperate each ingredient with a new line.
+        This is an recipe app that helps generate a shopping list. You're a helpful assistant. 
+        You help this app by taking a list of ingredients, normalising it and combining the ingredients.
+        Please combine all the ingredients from all recipes into a single list taking into consideration: 
+        1. If no quantity is specified assume quantity of 1.
+        2. All weights and volumes should be converted to metric.
+        3. Combine food ingredients where possible.
+        4. Sum amounts together.
+        5. Can you return only the ingredients as an unordered list.
+        6. Can you seperate each ingredient with a new line.
+        7. Ingredients might be spelled slightly differntly, combine these as well.\n\n
 
-            Ingredients: \n{ingredient_input}
+        Ingredients: {ingredient_input}
         """
 
         ai_result = OpenAiApi.ask_open_ai(input, openai_org, openai_api_key)
