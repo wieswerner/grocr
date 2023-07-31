@@ -23,8 +23,26 @@ export class BoardComponent implements OnInit {
     this.http
       .get<BoardDetails>(this.baseUrl + 'api/trello/boards/' + boardId)
       .subscribe({
-        next: (result) => (this.board = result),
+        next: (result) => {
+          this.board = result;
+          this.board.lists.forEach((list) => (list.cardsSelected = 0));
+        },
         error: (error) => console.error(error),
       });
+  }
+
+  toggleCard(cardId: string): void {
+    for (let list of this.board?.lists || []) {
+      for (let card of list.cards) {
+        if (card.id === cardId) {
+          card.isSelected = !card.isSelected;
+
+          list.cardsSelected = list.cards.filter(
+            (card) => card.isSelected
+          ).length;
+          return;
+        }
+      }
+    }
   }
 }

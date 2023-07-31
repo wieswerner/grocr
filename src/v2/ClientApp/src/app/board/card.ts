@@ -4,4 +4,5 @@ export interface Card {
   description: string;
   descriptionHtml: string;
   backgroundImage: string;
+  isSelected: boolean;
 }

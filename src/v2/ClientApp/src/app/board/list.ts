@@ -4,4 +4,5 @@ export interface List {
   id: string;
   name: string;
   cards: Card[];
+  cardsSelected: number;
 }
