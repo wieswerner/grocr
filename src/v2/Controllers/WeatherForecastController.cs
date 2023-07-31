@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Grocr.Domain;
+using Grocr.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Grocr.Controllers;
 
@@ -12,10 +14,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly Trello _trello;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, Trello trello)
     {
         _logger = logger;
+        _trello = trello;
     }
 
     [HttpGet]
@@ -28,5 +32,12 @@ public class WeatherForecastController : ControllerBase
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+    }
+    
+    [HttpPost]
+    public async Task<IEnumerable<BoardDto>> Post()
+    {
+        var boards = await _trello.GetBoards();
+        return boards;
     }
 }

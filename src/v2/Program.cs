@@ -1,8 +1,17 @@
+using Grocr.Domain;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+
+
+
+builder.Services.AddSingleton<Trello>();
+
+
+
 
 var app = builder.Build();
 
