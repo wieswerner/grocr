@@ -30,12 +30,12 @@ public class TrelloController : ControllerBase
 
     [HttpGet]
     [Route("boards/{id}")]
-    public async Task<IEnumerable<BoardDto>> Board(string id)
+    public async Task<BoardDto> Board(string id)
     {
         _logger.LogInformation("Getting Trello Board {Id}", id);
-        var boards = await _trello.GetBoard(id);
+        var board = await _trello.GetBoard(id);
 
-        _logger.LogInformation("Got {Count} Trello Boards", boards.Count);
-        return boards;
+        _logger.LogInformation("Got Trello Board with id {Id}", board.Id);
+        return board;
     }
 }

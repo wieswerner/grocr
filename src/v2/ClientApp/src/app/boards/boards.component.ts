@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Board } from './board';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-boards',
@@ -11,8 +12,9 @@ export class BoardsComponent implements OnInit {
   boards: Board[] = [];
 
   constructor(
-    readonly http: HttpClient,
-    @Inject('BASE_URL') readonly baseUrl: string
+    private readonly http: HttpClient,
+    @Inject('BASE_URL') private readonly baseUrl: string,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -20,5 +22,9 @@ export class BoardsComponent implements OnInit {
       next: (result) => (this.boards = result),
       error: (error) => console.error(error),
     });
+  }
+
+  selectBoard(boardId: string): void {
+    this.router.navigate(['/board', boardId]);
   }
 }

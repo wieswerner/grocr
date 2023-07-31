@@ -33,6 +33,7 @@ import { BoardComponent } from './board/board.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'boards', component: BoardsComponent },
+      { path: 'board/:id', component: BoardComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule,

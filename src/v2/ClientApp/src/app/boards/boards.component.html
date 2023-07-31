@@ -1,6 +1,10 @@
 <h1>Boards</h1>
 
-<mat-card class="board-card" *ngFor="let board of boards">
+<mat-card
+  class="board-card"
+  *ngFor="let board of boards"
+  (click)="selectBoard(board.id)"
+>
   <mat-card-header>
     <mat-card-title>{{ board.name }}</mat-card-title>
     <mat-card-subtitle>{{ board.description }}</mat-card-subtitle>
