@@ -14,13 +14,22 @@
     <form class="search-form">
       <mat-form-field class="search-full-width">
         <mat-label>Search</mat-label>
-        <input matInput />
+        <input matInput [formControl]="searchFormControl" />
+        <button
+          *ngIf="searchFormControl.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="searchFormControl.setValue('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
     </form>
   </div>
   <mat-chip-listbox aria-label="Recipe selection" multiple>
     <mat-chip-option
-      *ngFor="let card of cards"
+      *ngFor="let card of displayedCards"
       color="{{ card.color }}"
       [selected]="card.isSelected"
       >{{ card.name }}</mat-chip-option

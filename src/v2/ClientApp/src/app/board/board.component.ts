@@ -4,6 +4,7 @@ import { BoardDetails } from './board-details';
 import { ActivatedRoute } from '@angular/router';
 import { Card } from './card';
 import { List } from './list';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -13,7 +14,9 @@ import { List } from './list';
 export class BoardComponent implements OnInit {
   board: BoardDetails | null = null;
   cards: Card[] = [];
+  displayedCards: Card[] = [];
   colors: string[] = ['basic', 'primary', 'accent', 'warn'];
+  searchFormControl = new FormControl('');
 
   constructor(
     private readonly http: HttpClient,
@@ -22,6 +25,11 @@ export class BoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setupSearch();
+    this.getCards();
+  }
+
+  getCards() {
     const boardId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.http
@@ -43,23 +51,30 @@ export class BoardComponent implements OnInit {
             this.cards = this.cards.concat(list.cards);
             colorIndex++;
           });
+
+          this.displayedCards = this.cards;
         },
         error: (error) => console.error(error),
       });
+  }
+
+  setupSearch() {
+    this.searchFormControl.valueChanges.subscribe({
+      next: (value) => {
+        if (value) {
+          this.displayedCards = this.cards.filter(
+            (card) => card.name.toLowerCase().indexOf(value.toLowerCase()) != -1
+          );
+        } else {
+          this.displayedCards = this.cards;
+        }
+      },
+    });
   }
 
   toggleList(list: List) {
     this.cards
       .filter((card) => card.listName == list.name)
       .forEach((card) => (card.isSelected = !card.isSelected));
-  }
-
-  toggleCard(cardId: string): void {
-    for (let card of this.cards) {
-      if (card.id === cardId) {
-        card.isSelected = !card.isSelected;
-        return;
-      }
-    }
   }
 }
