@@ -1,0 +1,23 @@
+<button mat-raised-button color="accent" (click)="onGetIngredients()">
+  Get Ingredients
+</button>
+<button mat-raised-button color="warn" (click)="onTestIngredients()">
+  Get Ingredients TEST
+</button>
+
+<mat-chip-listbox aria-label="Color selection" multiple>
+  <mat-chip-option
+    *ngFor="let ingredient of ingredients"
+    selected
+    color="primary"
+  >
+    {{ ingredient.name }}
+    <button
+      matChipRemove
+      [attr.aria-label]="'remove ' + ingredient"
+      (click)="remove(ingredient)"
+    >
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip-option>
+</mat-chip-listbox>

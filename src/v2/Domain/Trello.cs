@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Grocr.Dto;
 using Grocr.Models;
 
 namespace Grocr.Domain;
@@ -7,9 +8,9 @@ public class Trello
 {
     private readonly HttpClient _httpClient = new();
 
-    private static string AppKey = "23ea7d6ca385d4df69ba5f7dbbafe09b";
-    private static string UserToken =
-        "ATTA2534192d45e6cd241ff3f9dd0085e173e5a432e04559496b989a631fdea621e707853A27";
+    private string AppKey => Environment.GetEnvironmentVariable("Grocr_Trello_AppKey")!;
+    private static string UserToken =>
+        Environment.GetEnvironmentVariable("Grocr_Trello_UserToken")!;
 
     public async Task<IList<BoardDto>> GetBoards()
     {
@@ -21,7 +22,7 @@ public class Trello
         return boards!.Select(board => board.ToDto()).ToList();
     }
 
-    public async Task<BoardDto> GetBoard(string id)
+    public async Task<BoardDetailsDto> GetBoard(string id)
     {
         var json = await _httpClient.GetStreamAsync(
             $"https://api.trello.com/1/boards/{id}?key={AppKey}&token={UserToken}"

@@ -1,4 +1,5 @@
 ﻿using Grocr.Domain;
+using Grocr.Dto;
 using Grocr.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ public class TrelloController : ControllerBase
 
     [HttpGet]
     [Route("boards/{id}")]
-    public async Task<BoardDto> Board(string id)
+    public async Task<BoardDetailsDto> Board(string id)
     {
         _logger.LogInformation("Getting Trello Board {Id}", id);
         var board = await _trello.GetBoard(id);

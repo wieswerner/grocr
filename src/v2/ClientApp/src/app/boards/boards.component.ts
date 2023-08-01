@@ -25,6 +25,6 @@ export class BoardsComponent implements OnInit {
   }
 
   selectBoard(boardId: string): void {
-    this.router.navigate(['/board', boardId]);
+    this.router.navigate(['/sync-overview', boardId]);
   }
 }

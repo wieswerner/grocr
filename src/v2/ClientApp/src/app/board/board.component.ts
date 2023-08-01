@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Card } from './card';
 import { List } from './list';
 import { FormControl } from '@angular/forms';
+import { MatChipSelectionChange } from '@angular/material/chips';
 
 @Component({
   selector: 'app-board',
@@ -76,5 +77,17 @@ export class BoardComponent implements OnInit {
     this.cards
       .filter((card) => card.listName == list.name)
       .forEach((card) => (card.isSelected = !card.isSelected));
+  }
+
+  getSelectedRecipes(): Card[] {
+    return this.cards.filter((card) => card.isSelected);
+  }
+
+  selectionChange(event: MatChipSelectionChange) {
+    if (!event.isUserInput) return;
+
+    this.cards
+      .filter((card) => card.name == event.source.value)
+      .forEach((card) => (card.isSelected = event.selected));
   }
 }

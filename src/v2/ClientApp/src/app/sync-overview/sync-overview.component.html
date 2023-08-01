@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="col"><app-board></app-board></div>
+  <div class="col">2</div>
+  <div class="col">
+    <app-ingredients
+      (getIngredients)="getIngredients($event)"
+    ></app-ingredients>
+  </div>
+</div>

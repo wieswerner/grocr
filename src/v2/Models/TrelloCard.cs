@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Grocr.Dto;
 using Markdig;
 
 namespace Grocr.Models;
@@ -28,7 +29,7 @@ public class TrelloCard
             Name = Name,
             Description = Desc,
             DescriptionHtml = Markdown.ToHtml(Desc),
-            BackgroundImage = Cover.Scaled?.Single(p => p.Width == 1280).Url
+            BackgroundImage = Cover.Scaled?.Single(p => p.Width == 1280).Url,
         };
     }
 }

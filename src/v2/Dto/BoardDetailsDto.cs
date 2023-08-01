@@ -1,4 +1,4 @@
-﻿namespace Grocr.Models;
+﻿namespace Grocr.Dto;
 
 public class BoardDetailsDto : BoardDto
 {

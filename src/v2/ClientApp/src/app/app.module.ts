@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { BoardsComponent } from './boards/boards.component';
 import { BoardComponent } from './board/board.component';
+import { IngredientsComponent } from './ingredients/ingredients.component';
+import { SyncOverviewComponent } from './sync-overview/sync-overview.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { BoardComponent } from './board/board.component';
     FetchDataComponent,
     BoardsComponent,
     BoardComponent,
+    IngredientsComponent,
+    SyncOverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,7 +38,7 @@ import { BoardComponent } from './board/board.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'boards', component: BoardsComponent },
-      { path: 'board/:id', component: BoardComponent },
+      { path: 'sync-overview/:id', component: SyncOverviewComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule,

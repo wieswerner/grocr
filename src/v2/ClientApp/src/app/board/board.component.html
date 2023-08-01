@@ -32,6 +32,7 @@
       *ngFor="let card of displayedCards"
       color="{{ card.color }}"
       [selected]="card.isSelected"
+      (selectionChange)="selectionChange($event)"
       >{{ card.name }}</mat-chip-option
     >
   </mat-chip-listbox>

@@ -6,12 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-
-
 builder.Services.AddSingleton<Trello>();
-
-
-
+builder.Services.AddSingleton<OpenAi>();
 
 var app = builder.Build();
 
@@ -26,10 +22,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
 
