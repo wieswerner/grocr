@@ -1,5 +1,5 @@
 .board-card {
-  max-width: 600px;
+  max-width: 200px;
   margin-top: 20px;
   cursor: pointer;
 }
@@ -7,4 +7,29 @@
 .board-card:hover,
 .selected {
   border: 2px solid #3f51b5;
+}
+
+.container {
+  margin: auto;
+  width: 650px;
+}
+
+.filter-container {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.list-buttons {
+  margin: 5px;
+  width: 140px;
+}
+
+.search-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.search-full-width {
+  width: 100%;
 }

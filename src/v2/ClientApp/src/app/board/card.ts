@@ -5,4 +5,6 @@ export interface Card {
   descriptionHtml: string;
   backgroundImage: string;
   isSelected: boolean;
+  listName: string;
+  color: string;
 }

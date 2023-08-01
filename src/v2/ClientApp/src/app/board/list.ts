@@ -5,4 +5,5 @@ export interface List {
   name: string;
   cards: Card[];
   cardsSelected: number;
+  color: string;
 }
